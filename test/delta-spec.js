@@ -22,13 +22,21 @@ describe('Delta Force', function () {
   });
 
   describe('Basic Timer', function () {
-    it('should be a function', function () {
+    it('tickhandler should be a function', function () {
       incomingObj.tickHandler.should.be.a.function;
     });
-    it('should be an instance of Timer', function () {
+    it('myTimer should be an instance of Timer', function () {
       incomingObj.myTimer.should.be.an.instanceof(incomingObj.eventEmitter);
     });
   });
 
+  describe('Controls', function () {
+    it('myController should be an instance of Timer', function () {
+      incomingObj.myController.should.be.an.instanceof(incomingObj.eventEmitter);
+    });
+    it('should be a function', function () {
+      incomingObj.turnOn.should.be.a.function;
+    });
+  });
 
 });
