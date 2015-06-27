@@ -5,30 +5,26 @@ function Timer () {
   EventEmitter.call(this);
   var self = this;
   this.i = 0;
-
-  this.start = setInterval(function () {
-                self.emit('tick', { interval : self.i++ });
-              }, 1000);
+  setInterval(function () {
+    self.emit('tick', { interval : self.i++ });
+  }, 1000);
 }
 
 util.inherits(Timer, EventEmitter);
 
 var myTimer = new Timer();
 
-
-
-function theTicker(event){
+function tickHandler(event){
   process.stdout.write('tick ' + this.i + '\n');
-  process.stdout.write('tick ' + Date.now() + '\n');
 }
 
-myTimer.on('tick', theTicker);
+myTimer.addListener('tick', tickHandler);
 
 
 module.exports = {
   eventEmitter : EventEmitter,
   Timer : Timer,
-  theTicker : theTicker,
+  tickHandler : tickHandler,
   myTimer : myTimer
 
 };
