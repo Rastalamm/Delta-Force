@@ -6,6 +6,9 @@ function Timer () {
   var self = this;
   this.i = 0;
   this.currTime;
+  setInterval(function () {
+    self.emit('tick', { interval : self.i++ });
+  }, 1000);
 
   this.start = function(){
     intervalId =  setInterval(function () {
@@ -20,9 +23,6 @@ function Timer () {
     clearInterval(intervalId)
   }
 
-  // setInterval(function () {
-  //   self.emit('tick', { interval : self.i++ });
-  // }, 1000);
 }
 
 util.inherits(Timer, EventEmitter);
