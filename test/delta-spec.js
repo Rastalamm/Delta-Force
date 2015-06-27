@@ -71,7 +71,7 @@ describe('Delta Force', function () {
       incomingObj.turnOn.should.be.a.function;
     });
 
-    it('turnOn should emit a start', function () {
+    it.skip('turnOn should emit a start', function () {
       console.log('dasf',incomingObj.myTimer.i)
       expect(function(){ incomingObj.myTimer.emit('tick') }).to.cause(incomingObj.Timer).to.emit('tick')
      // expect(function(){ emitter.emit('test') }).to.cause(emitter).to.emit('test')
