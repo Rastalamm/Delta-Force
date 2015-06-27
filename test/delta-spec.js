@@ -49,38 +49,21 @@ describe('Delta Force', function () {
       incomingObj.myTimer.should.be.an.instanceof(incomingObj.eventEmitter);
     });
 
-    // it('should emit a tick', function () {
 
-    //   var myTimer = new Timer();
-
-    //   function tickHandler(event){
-    //     process.stdout.write('tick ' + this.i + '\n');
-    //   }
-
-    //   myTimer.addListener('tick', tickHandler);
-
-    //   expect(function(){ myTimer('tick') }).to.cause(tickHandler).to.emit('tick');
-    // });
   });
 
   describe('Controls', function () {
-    it('myController should be an instance of Timer', function () {
-      incomingObj.myController.should.be.an.instanceof(incomingObj.eventEmitter);
-    });
-    it('turnOn should be a function', function () {
-      incomingObj.turnOn.should.be.a.function;
-    });
-
-    it.skip('turnOn should emit a start', function () {
-      console.log('dasf',incomingObj.myTimer.i)
-      expect(function(){ incomingObj.myTimer.emit('tick') }).to.cause(incomingObj.Timer).to.emit('tick')
-     // expect(function(){ emitter.emit('test') }).to.cause(emitter).to.emit('test')
+    it('it should emit a start', function () {
+      console.log('dafdssf',incomingObj.myTimer.start)
+     //expect(function(){ incomingObj.myTimer.emit('tick') }).to.cause(incomingObj.myTimer.start).to.emit('tick')
+     //expect(function(){ emitter.emit('test') }).to.cause(emitter).to.emit('test')
     });
 
-    it('turnOff should be a function', function () {
-      incomingObj.turnOff.should.be.a.function;
-    });
   });
 
+  describe('Time Limit', function () {
+
+
+  });
 
 });

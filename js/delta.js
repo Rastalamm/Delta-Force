@@ -5,21 +5,34 @@ function Timer () {
   EventEmitter.call(this);
   var self = this;
   this.i = 0;
-  this.currTime;
-  setInterval(function () {
-    self.emit('tick', { interval : self.i++ });
-  }, 1000);
 
-  this.start = function(){
+
+  // setInterval(function () {
+  //   self.emit('tick', { interval : self.i++ });
+  // }, 1000);
+
+  this.start = function(num){
+    var counter = 0;
+    num = num || 10;
+    currTime = Date.now();
+
     intervalId =  setInterval(function () {
-      currTime = Date.now();
-      self.emit('start', currTime);
+      counter++;
+      self.emit('tick', {startTime : currTime});
+
+      if(counter > num){
+        completeTime = Date.now();
+        clearInterval(intervalId)
+        self.emit('complete', {completeTime : completeTime})
+      }
+
     }, 1000);
+
   }
 
   this.stop = function(){
     currTime = Date.now();
-    self.emit('stop', currTime)
+    self.emit('stop', {stopTime : currTime})
     clearInterval(intervalId)
   }
 
@@ -30,29 +43,15 @@ util.inherits(Timer, EventEmitter);
 var myTimer = new Timer();
 
 function tickHandler(event){
-  process.stdout.write('tick ' + this.i + '\n');
+  console.log(event);
 }
-
 myTimer.addListener('tick', tickHandler);
+myTimer.addListener('complete', tickHandler);
+myTimer.addListener('stop', tickHandler);
 
 
-//Controls section
-
-var myController = new Timer();
-
-function turnOn (event){
-  process.stdout.write('start ' + currTime + '\n');
-}
-
-myController.addListener('start', turnOn);
-myController.start();
-
-function turnOff(event){
-  process.stdout.write('stop ' + currTime + '\n');
-}
-myController.addListener('stop', turnOff);
-
-setTimeout(myController.stop, 5000);
+myTimer.start();
+//setTimeout(myTimer.stop, 5000);
 
 
 
@@ -62,13 +61,5 @@ module.exports = {
   eventEmitter : EventEmitter,
   Timer : Timer,
   tickHandler : tickHandler,
-  myTimer : myTimer,
-  myController : myController,
-  turnOn : turnOn,
-  turnOff : turnOff
+  myTimer : myTimer
 };
-
-// below puts a limit on the amount of ticks
-  // if(this.i == 5){
-  //   this.removeListener('tick', tickHandler);
-  // }
