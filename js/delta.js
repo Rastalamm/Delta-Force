@@ -16,36 +16,44 @@ function Timer () {
     num = num || 10;
     maxLag = maxLag || 50;
     currTime = Date.now();
+    var interval = 1000;
 
-    intervalId =  setInterval(function () {
-      numCounter++;
+    function midCatch(interval){
 
-      self.emit('tick', {startTime : currTime});
+        intervalId =  setInterval(function () {
 
-      if(numCounter > num){
-        completeTime = Date.now();
-        clearInterval(intervalId)
-        self.emit('complete', {completeTime : completeTime})
-      }
+          numCounter++;
 
-      var lag = (Date.now()-((numCounter*1000)+currTime))
-        console.log('predict time', (numCounter*1000)+currTime);
-        console.log('actual  time', Date.now());
-      if( lag > maxLag  ){
-
-        self.emit('lag', { lagTime : lag})
-
-      }
+          self.emit('tick', {startTime : currTime});
 
 
-    }, 1000);
+          var lag = (Date.now()-((numCounter*1000)+currTime))
+            console.log('predict time', (numCounter*1000)+currTime);
+            console.log('actual  time', Date.now());
+          if( lag > maxLag  ){
+            interval = 1000-lag;
+            self.emit('lag', { lagTime : lag})
+          }
+            clearInterval(intervalId);
 
+          if(numCounter > num){
+            completeTime = Date.now();
+            self.emit('complete', {completeTime : completeTime})
+          }else{
+            midCatch(interval);
+          }
+
+        }, interval);
+    }
+
+    midCatch(interval);
   }
 
   this.stop = function(){
     currTime = Date.now();
     self.emit('stop', {stopTime : currTime})
     clearInterval(intervalId)
+
   }
 
 }
@@ -64,7 +72,7 @@ myTimer.addListener('stop', tickHandler);
 myTimer.addListener('lag', tickHandler);
 
 
-myTimer.start(12,1);
+myTimer.start(10,1);
 //setTimeout(myTimer.stop, 5000);
 
 
