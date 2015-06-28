@@ -32,12 +32,6 @@ describe('Delta Force', function () {
       expect(timer instanceof incomingObj.eventEmitter).to.be.true;
     });
 
-    // it('should count and stuff', function (done) {
-
-
-
-    // });
-
   });
 
 
