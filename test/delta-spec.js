@@ -34,21 +34,6 @@ describe('Delta Force', function () {
     it('should release a tick', function () {
       expect(function(){ timer.emit('tick') }).to.cause(timer).to.emit('tick')
     });
-
-    it('should call the cb function if tick is heard', function (done) {
-
-      timer.addEventListener('tick', function(){
-        didItTick = true;
-      })
-
-      setTimeout(function(){
-        didItTick.should.be.true;
-        done();
-      },2000)
-
-
-
-    });
   });
 
 
