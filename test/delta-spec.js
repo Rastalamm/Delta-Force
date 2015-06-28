@@ -35,7 +35,7 @@ describe('Delta Force', function () {
       expect(function(){ timer.emit('tick') }).to.cause(timer).to.emit('tick')
     });
 
-    it('should ', function () {
+    it('should call the cb function if tick is heard', function (done) {
 
       timer.addEventListener('tick', function(){
         didItTick = true;
@@ -43,7 +43,6 @@ describe('Delta Force', function () {
 
       setTimeout(function(){
         didItTick.should.be.true;
-        expect(spy).to.have.been.called()
         done();
       },2000)
 
