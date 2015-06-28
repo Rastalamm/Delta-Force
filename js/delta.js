@@ -5,8 +5,6 @@ var util = require('util');
 var COUNT_INTERVAL = 1000;
 var STOP_INTERVAL = 2000;
 
-
-
 function Timer () {
   EventEmitter.call(this);
 }
@@ -29,9 +27,6 @@ Timer.prototype.stopNow = function() {
   myTimer.emit('stop', {endTime : endTime});
 
 };
-
-//add consts all caps
-
 
 var myTimer = new Timer();
 
