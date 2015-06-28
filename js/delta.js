@@ -1,6 +1,12 @@
 var EventEmitter = require('events');
 var util = require('util');
 
+//Declaring Constants
+var COUNT_INTERVAL = 1000;
+var STOP_INTERVAL = 2000;
+
+
+
 function Timer () {
   EventEmitter.call(this);
 }
@@ -13,17 +19,18 @@ Timer.prototype.start = function() {
   intervalId =  setInterval(function () {
   startTime = Date.now();
   self.emit('start', {startTime : startTime});
-  }, 1000);
+  }, COUNT_INTERVAL);
 
 };
 
 Timer.prototype.stopNow = function() {
   endTime = Date.now();
-  myTimer.emit('stop', {endTime : endTime});
   clearInterval(intervalId);
+  myTimer.emit('stop', {endTime : endTime});
 
 };
 
+//add consts all caps
 
 
 var myTimer = new Timer();
@@ -38,7 +45,7 @@ myTimer.addListener('stop', tickHandler);
 
 myTimer.start();
 
-var goodBye = setTimeout(myTimer.stopNow, 2000);
+setTimeout(myTimer.stopNow, STOP_INTERVAL);
 
 module.exports = {
   eventEmitter : EventEmitter,
