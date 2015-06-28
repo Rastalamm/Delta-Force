@@ -27,6 +27,5 @@ module.exports = {
   Timer : Timer,
   tickHandler : tickHandler,
   myTimer : myTimer
-
 };
 
