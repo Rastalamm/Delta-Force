@@ -1,13 +1,11 @@
 var chai = require("chai");
+chai.use(require('chai-eventemitter'))
+var sinon = require("sinon");
+var sinonChai = require("sinon-chai");
+chai.use(sinonChai);
 
 var should = chai.should();
 var expect = chai.expect;
-
-// {
-//   timer : Timer,
-//   tickHandler : tickHandler
-// };
-
 
 var incomingObj = require('../js/delta.js');
 
@@ -22,11 +20,35 @@ describe('Delta Force', function () {
   });
 
   describe('Basic Timer', function () {
+
+    beforeEach(function () {
+      timer = new incomingObj.Timer;
+    });
+
     it('should be a function', function () {
-      incomingObj.tickHandler.should.be.a.function;
+      timer.should.be.a.function;
     });
     it('should be an instance of Timer', function () {
-      incomingObj.myTimer.should.be.an.instanceof(incomingObj.eventEmitter);
+      timer.should.be.an.instanceof(incomingObj.eventEmitter);
+    });
+    it('should release a tick', function () {
+      expect(function(){ timer.emit('tick') }).to.cause(timer).to.emit('tick')
+    });
+
+    it('should ', function () {
+
+      timer.addEventListener('tick', function(){
+        didItTick = true;
+      })
+
+      setTimeout(function(){
+        didItTick.should.be.true;
+        expect(spy).to.have.been.called()
+        done();
+      },2000)
+
+
+
     });
   });
 

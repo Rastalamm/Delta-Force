@@ -4,20 +4,20 @@ var util = require('util');
 function Timer () {
   EventEmitter.call(this);
   var self = this;
-  this.i = 0;
+  this.i = 1;
+
   setInterval(function () {
-    self.emit('tick', { interval : self.i++ });
+    self.emit('tick', { tick : self.i++ });
   }, 1000);
+
 }
 util.inherits(Timer, EventEmitter);
 
 var myTimer = new Timer();
 
 function tickHandler(event){
-  process.stdout.write('tick ' + this.i + '\n');
-  // if(this.i == 5){
-  //   this.removeListener('tick', tickHandler);
-  // }
+  console.log(event);
+  console.log(event.tick);
 }
 myTimer.addListener('tick', tickHandler);
 
